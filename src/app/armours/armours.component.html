@@ -1,1 +1,8 @@
-<p>armours works!</p>
+<h2>Armoues</h2>
+<ul class="armours">
+  <li *ngFor="let armour of armours">
+    <a routerLink="/detail/{{armour.id}}">
+      <span class="badge">{{armour.id}}</span> {{armour.name}}
+    </a>
+  </li>
+</ul>

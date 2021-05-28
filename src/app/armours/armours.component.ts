@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Armour} from '../armour';
+import {ArmourService} from '../armour.service';
 
 @Component({
   selector: 'app-armours',
@@ -6,10 +8,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./armours.component.css']
 })
 export class ArmoursComponent implements OnInit {
+  armours: Armour[] = [];
 
-  constructor() { }
+  constructor(private armourService: ArmourService) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.getArmours();
   }
 
+  getArmours(): void {
+    this.armourService.getAmours()
+      .subscribe(armours => this.armours = armours);
+  }
 }

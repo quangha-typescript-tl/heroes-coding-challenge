@@ -11,12 +11,14 @@ import { MessagesComponent } from './messages/messages.component';
 import { AppRoutingModule } from './app-routing.module';
 import { WeaponsComponent } from './weapons/weapons.component';
 import { ArmoursComponent } from './armours/armours.component';
+import {KonvaModule} from "ng2-konva";
 
 @NgModule({
   imports: [
     BrowserModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    KonvaModule
   ],
   declarations: [
     AppComponent,

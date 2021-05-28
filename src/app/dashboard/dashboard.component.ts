@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Hero } from '../hero';
 import { HeroService } from '../hero.service';
+import {Observable, of} from "rxjs";
 
 @Component({
   selector: 'app-dashboard',
@@ -9,6 +10,22 @@ import { HeroService } from '../hero.service';
 })
 export class DashboardComponent implements OnInit {
   heroes: Hero[] = [];
+  public configStage: Observable<any> = of({
+    width: 200,
+    height: 200
+  });
+  public configCircle: Observable<any> = of({
+    x: 100,
+    y: 100,
+    radius: 70,
+    fill: 'red',
+    stroke: 'black',
+    strokeWidth: 4
+  });
+
+  public handleClick() {
+    console.log('Hello Circle');
+  }
 
   constructor(private heroService: HeroService) { }
 

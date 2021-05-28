@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Weapon} from "../weapon";
+import {WeaponService} from "../weapon.service";
 
 @Component({
   selector: 'app-weapons',
@@ -6,10 +8,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./weapons.component.css']
 })
 export class WeaponsComponent implements OnInit {
+  weapons: Weapon[] = [];
 
-  constructor() { }
+  constructor(private weaponService: WeaponService) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.getWeapons();
   }
 
+  getWeapons(): void {
+    this.weaponService.getWeapons()
+      .subscribe( weapons => this. weapons = weapons);
+  }
 }

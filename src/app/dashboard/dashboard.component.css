@@ -52,3 +52,9 @@ a:hover {
   text-align: center;
   align-items: center;
 }
+.weapon-choose {
+  font-size: 30px;
+}
+#hero-weapon {
+  font-size: 30px;
+}

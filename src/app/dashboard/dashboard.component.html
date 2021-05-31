@@ -4,4 +4,10 @@
     {{hero.name}}
   </a>
 </div>
+<div class="weapon-choose" [hidden]="weaponChooseHidden">
+  <label for="hero-weapon">Weapon: </label>
+  <select id="hero-weapon" #weaponSelect [value]="weaponChangeId" (change)="changeWeapon(weaponSelect.value)">
+    <option *ngFor="let weapon of weapons" [value]="weapon.id">{{weapon.name}}</option>
+  </select>
+</div>
 <div id="container"></div>

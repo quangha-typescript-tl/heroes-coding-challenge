@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { Armour } from '../armour';
+import { ArmourService } from '../armour.service';
 
 import { Hero } from '../hero';
 import { HeroService } from '../hero.service';
+import { Weapon } from '../weapon';
+import { WeaponService } from '../weapon.service';
 
 @Component({
   selector: 'app-heroes',

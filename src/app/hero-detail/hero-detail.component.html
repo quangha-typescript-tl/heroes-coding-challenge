@@ -4,10 +4,28 @@
   <div>
     <label for="hero-name">Hero name: </label>
     <input id="hero-name" [(ngModel)]="hero.name" placeholder="Hero name"/>
-  <div>
-    <label for="hero-name">Hero health: </label>
-    <input id="hero-health" [(ngModel)]="hero.health" placeholder="Hero Health"/>
   </div>
+  <div>
+    <label for="hero-health">Hero health: </label>
+    <input id="hero-health" [value]="hero.health + healthArmour" placeholder="Hero Health"/>
+  </div>
+
+  <div>
+    <label for="hero-weapon">Weapon: </label>
+    <select id="hero-weapon" [(ngModel)]="hero.weaponId" >
+      <option *ngFor="let weapon of weapons" [value]="weapon.id">{{weapon.name}}</option>
+    </select>
+  </div>
+
+  <div>
+    <label for="hero-armour">Armour: </label>
+    <select id="hero-armour" [(ngModel)]="hero.armourId" >
+      <option *ngFor="let armour of armours" [value]="armour.id">{{armour.name}}</option>
+    </select>
+  </div>
+
+  <div>
+    <img id="hero-image" [src]="hero.imageSrc">
   </div>
   <button (click)="goBack()">go back</button>
 </div>

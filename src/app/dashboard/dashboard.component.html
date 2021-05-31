@@ -1,12 +1,7 @@
 <h2>Top Heroes</h2>
 <div class="heroes-menu">
-  <a *ngFor="let hero of heroes"
-    routerLink="/detail/{{hero.id}}">
+  <a *ngFor="let hero of heroes" (click)="onClickHero(hero)">
     {{hero.name}}
   </a>
 </div>
-<ko-stage [config]="configStage">
-  <ko-layer>
-    <ko-circle [config]="configCircle" (click)="handleClick($event)"></ko-circle>
-  </ko-layer>
-</ko-stage>
+<div id="container"></div>

@@ -22,3 +22,10 @@ button:disabled {
   color: #ccc;
   cursor: auto;
 }
+div {
+  margin-bottom: 10px;
+}
+select {
+  font-size: 1em;
+  padding: .5rem;
+}

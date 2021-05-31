@@ -1,14 +1,9 @@
-import { Hero } from './hero';
+import { Armour } from "./armour";
 
-export const ARMOURS: Hero[] = [
-  { id: 1, name: 'Dr Nice', health: 68},
-  { id: 2, name: 'Narco', health: 34 },
-  { id: 3, name: 'Bombasto', health: 99 },
-  { id: 4, name: 'Celeritas', health: 32 },
-  { id: 5, name: 'Magneta', health: 65 },
-  { id: 6, name: 'RubberMan', health: 55 },
-  { id: 7, name: 'Dynama', health: 88 },
-  { id: 8, name: 'Dr IQ', health: 77 },
-  { id: 9, name: 'Magma', health: 66 },
-  { id: 10, name: 'Tornado', health: 12 }
+export const ARMOURS: Armour[] = [
+  { id: 1, name: 'Blue', health: 60},
+  { id: 2, name: 'Red', health: 70 },
+  { id: 3, name: 'Yellow', health: 80 },
+  { id: 4, name: 'Pink', health: 90 },
+  { id: 5, name: 'Green', health: 100 }
 ];

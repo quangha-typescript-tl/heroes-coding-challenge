@@ -48,3 +48,7 @@ a {
 a:hover {
   background-color: #000;
 }
+.attack {
+  text-align: center;
+  align-items: center;
+}

@@ -63,6 +63,9 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       }
     }
+    if(this.selectedHeroesList.length < 2) {
+      clearInterval(this.battle);
+    }
   }
 
   getHeroes(): void {

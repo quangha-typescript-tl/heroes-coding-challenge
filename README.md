@@ -1,3 +1,10 @@
+## Report
+ - It took me 8 hours to complete this test
+ - Some problems are expected to improve:
+ - Add Armour and Weapon in hero-detail 
+ - Enhance interface in screens
+ - Add weapon images to make it visual while changing weapon in the war
+
 # The contest
 
 We are looking to contract the best freelancers in the world for our interactive story building site.   We have designed a coding challenge to help us find the best coders on Freelancer.  

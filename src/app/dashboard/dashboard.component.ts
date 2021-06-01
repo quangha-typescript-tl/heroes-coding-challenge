@@ -7,6 +7,7 @@ import {Armour} from '../armour';
 import {ArmourService} from '../armour.service';
 import {Weapon} from '../weapon';
 import {WeaponService} from '../weapon.service';
+import {Subscription, timer} from 'rxjs';
 
 const PADDING = 50;
 
@@ -16,6 +17,8 @@ const PADDING = 50;
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
+  private defaultImages = ['/assets/thor.jpeg', '/assets/ironman.jpeg'];
+  private battle!: Subscription;
   heroes: Hero[] = [];
   weapons: Weapon[] = [];
   selectedHeroesList: any[] = [];
@@ -26,8 +29,6 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   };
   configStage!: any;
   layer = new Konva.Layer();
-  private defaultImages = ['/assets/thor.jpeg', '/assets/ironman.jpeg'];
-  battle: any;
   weaponChooseHidden = true;
   weaponChangeId = 0;
   heroChangeId = 0;
@@ -38,34 +39,43 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
               private weaponService: WeaponService) {
   }
 
+  private _unsubscribe(subscription: any) {
+    if (subscription) {
+      subscription.unsubscribe();
+      subscription = null;
+    }
+  }
+
   ngOnInit() {
     this.getHeroes();
     this.getWeapons();
-    this.battleStart();
-    this.battle = setInterval(() => {
-      this.battleStart();
-    }, 1000);
   }
 
   battleStart() {
-    for (let i = 0; i < this.selectedHeroesList.length; i++) {
-      for (let j = 0; j < this.selectedHeroesList.length; j++) {
-        if (i !== j) {
-          this.selectedHeroesList[i].health = this.selectedHeroesList[i].health - this.selectedHeroesList[j].damage;
+    // decrease health every second
+    this._unsubscribe(this.battle);
+    this.battle = timer (1000, 1000).subscribe(b => {
+      for (let i = 0; i < this.selectedHeroesList.length; i++) {
+        for (let j = 0; j < this.selectedHeroesList.length; j++) {
+          if (i !== j) {
+            this.selectedHeroesList[i].health = this.selectedHeroesList[i].health - this.selectedHeroesList[j].damage;
+          }
+        }
+        // remove hero when your health
+        if (this.selectedHeroesList[i].health <= 0) {
+          this.selectedHeroesList[i].konvaImg.remove();
+          this.selectedHeroesList.splice(i, 1);
+        } else {
+          if (this.selectedHeroesList[i].health < 50) {
+            this.selectedHeroesList[i].konvaImg.setAttrs({stroke: 'red', strokeWidth: 10});
+          }
         }
       }
-      if (this.selectedHeroesList[i].health <= 0) {
-        this.selectedHeroesList[i].konvaImg.remove();
-        this.selectedHeroesList.splice(i, 1);
-      } else {
-        if (this.selectedHeroesList[i].health < 50) {
-          this.selectedHeroesList[i].konvaImg.setAttrs({stroke: 'red', strokeWidth: 10});
-        }
+      // clear battle when only one hero is alive
+      if (this.selectedHeroesList.length < 2) {
+        this._unsubscribe(this.battle);
       }
-    }
-    if(this.selectedHeroesList.length < 2) {
-      clearInterval(this.battle);
-    }
+    });
   }
 
   getHeroes(): void {
@@ -103,6 +113,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
     this.configStage.add(this.layer);
   }
 
+  // add hero to canvas
   drawImage(hero: Hero, imageObj: any) {
     const heroImg = new Konva.Image({
       image: imageObj,
@@ -119,6 +130,9 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
       this.heroChangeId = hero.id;
     });
     this.layer.add(heroImg);
+    if (this.selectedHeroesList.length > 1) {
+      this.battleStart();
+    }
   }
 
   onClickHero(hero: Hero) {
@@ -151,6 +165,6 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    clearInterval(this.battle);
+    this._unsubscribe(this.battle);
   }
 }
